@@ -1,0 +1,26 @@
+.git
+StableHouse.SplashPage/
+Hosting/
+
+bin
+build
+node_modules
+obj
+out
+templates
+swagger-codegen-cli-2.3.1.jar
+wwwroot/dist/*.*
+wwwroot/ui-errors
+wwwroot/templates
+
+*.sln
+*.user
+
+.vs
+# .git we need git to emit the version
+
+.vscode
+
+node_modules
+.idea
+.env
