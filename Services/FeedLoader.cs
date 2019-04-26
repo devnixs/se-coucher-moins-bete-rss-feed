@@ -85,14 +85,25 @@ namespace SeCoucherMoinsBeteRssFeed.Services
             var dateSplitted = dateString.Split("/");
             var date = new DateTimeOffset(int.Parse(dateSplitted[2]), int.Parse(dateSplitted[1]), int.Parse(dateSplitted[0]), 0, 0, 0, 0, TimeSpan.Zero);
 
+            var imageUrl = image?.Attributes["src"].Value;
+            long imageLength = 0;
+            if (imageUrl != null)
+            {
+                var client = _clientFactory.CreateClient();
+                var imageContent = await client.GetByteArrayAsync(imageUrl);
+                imageLength = imageContent.Length;
+            }
+
             var anecdote = new Anecdote()
             {
                 Content = summary.InnerText + "\n" + (details != null ? details.InnerText : ""),
                 Title = title.InnerText,
                 Date = date,
-                ImageUrl = image?.Attributes["src"].Value,
+                ImageUrl = imageUrl,
+                ImageLength = imageLength,
                 Link = fullUrl
             };
+
             return anecdote;
         }
 
@@ -109,5 +120,6 @@ namespace SeCoucherMoinsBeteRssFeed.Services
         public string Link { get; set; }
         public DateTimeOffset Date { get; set; }
         public string ImageUrl { get; set; }
+        public long ImageLength { get; set; }
     }
 }

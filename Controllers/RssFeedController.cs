@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.DataProtection;
@@ -38,7 +40,7 @@ namespace SeCoucherMoinsBeteRssFeed.Controllers
 
             foreach (var item in anecdotes)
             {
-                var item1 = new Item()
+                var feedItem = new Item()
                 {
                     Title = item.Title,
                     Body = item.Content,
@@ -48,7 +50,23 @@ namespace SeCoucherMoinsBeteRssFeed.Controllers
                     Author = new Author() {Name = "John Dee", Email = "foo@foo.com"}
                 };
 
-                feed.Items.Add(item1);
+                if (!string.IsNullOrEmpty(item.ImageUrl))
+                {
+                    feedItem.Enclosures = new List<Enclosure>()
+                    {
+                        new Enclosure()
+                        {
+                            Values = new NameValueCollection()
+                            {
+                                {"url", item.ImageUrl},
+                                {"type", "image/jpeg"},
+                                {"length", item.ImageLength.ToString()},
+                            }
+                        }
+                    };
+                }
+
+                feed.Items.Add(feedItem);
             }
 
             var rss = feed.Serialize(new SerializeOption() {Encoding = Encoding.UTF8});
