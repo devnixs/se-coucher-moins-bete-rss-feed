@@ -9,7 +9,7 @@ RUN dotnet restore
 RUN dotnet publish -c Release --output ./out
 
 # Run image.
-FROM microsoft/dotnet:2.2.0-runtime
+FROM microsoft/dotnet:2.2.0-aspnetcore-runtime
 
 # This will install the ps command, and this will help create dump of the process if necessary
 RUN apt-get update && apt-get install -y procps
