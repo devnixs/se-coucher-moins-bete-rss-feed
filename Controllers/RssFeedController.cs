@@ -53,18 +53,18 @@ namespace SeCoucherMoinsBeteRssFeed.Controllers
                 if (!string.IsNullOrEmpty(item.ImageUrl))
                 {
                     feedItem.Body += "  [Image Disponible]";
-                    feedItem.Enclosures = new List<Enclosure>()
-                    {
-                        new Enclosure()
-                        {
-                            Values = new NameValueCollection()
-                            {
-                                {"url", item.ImageUrl},
-                                {"type", "image/*"},
-                                {"length", item.ImageLength.ToString()},
-                            }
-                        }
-                    };
+//                    feedItem.Enclosures = new List<Enclosure>()
+//                    {
+//                        new Enclosure()
+//                        {
+//                            Values = new NameValueCollection()
+//                            {
+//                                {"url", item.ImageUrl},
+//                                {"type", "image/*"},
+//                                {"length", item.ImageLength.ToString()},
+//                            }
+//                        }
+//                    };
                 }
 
                 feed.Items.Add(feedItem);
