@@ -47,11 +47,12 @@ namespace SeCoucherMoinsBeteRssFeed.Controllers
                     Link = new Uri(item.Link),
                     Permalink = item.Link,
                     PublishDate = item.Date.Date,
-                    Author = new Author() {Name = "John Dee", Email = "foo@foo.com"}
+                    Author = new Author() {Name = "John Dee", Email = "foo@foo.com"},
                 };
 
                 if (!string.IsNullOrEmpty(item.ImageUrl))
                 {
+                    feedItem.Body += "  [Image Disponible]";
                     feedItem.Enclosures = new List<Enclosure>()
                     {
                         new Enclosure()
