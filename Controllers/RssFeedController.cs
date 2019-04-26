@@ -49,7 +49,9 @@ namespace SeCoucherMoinsBeteRssFeed.Controllers
                     PublishDate = item.Date.Date,
                     Author = new Author() {Name = "John Dee", Email = "foo@foo.com"},
                 };
+                feedItem.
 
+                
                 if (!string.IsNullOrEmpty(item.ImageUrl))
                 {
                     feedItem.Body += "  [Image Disponible]";
@@ -60,7 +62,7 @@ namespace SeCoucherMoinsBeteRssFeed.Controllers
                             Values = new NameValueCollection()
                             {
                                 {"url", item.ImageUrl},
-                                {"type", "image/png"},
+                                {"type", "image/*"},
                                 {"length", item.ImageLength.ToString()},
                             }
                         }
