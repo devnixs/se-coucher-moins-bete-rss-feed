@@ -49,8 +49,6 @@ namespace SeCoucherMoinsBeteRssFeed.Controllers
                     PublishDate = item.Date.Date,
                     Author = new Author() {Name = "John Dee", Email = "foo@foo.com"},
                 };
-                feedItem.
-
                 
                 if (!string.IsNullOrEmpty(item.ImageUrl))
                 {
