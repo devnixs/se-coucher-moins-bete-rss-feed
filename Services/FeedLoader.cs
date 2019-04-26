@@ -13,9 +13,9 @@ namespace SeCoucherMoinsBeteRssFeed.Services
         private Anecdote[] _anecdotes = new Anecdote[0];
 
         private readonly IHttpClientFactory _clientFactory;
-        private readonly IHostEnvironment _environment;
+        private readonly IHostingEnvironment _environment;
 
-        public FeedLoader(IHttpClientFactory clientFactory, IHostEnvironment environment)
+        public FeedLoader(IHttpClientFactory clientFactory, IHostingEnvironment environment)
         {
             _clientFactory = clientFactory;
             _environment = environment;

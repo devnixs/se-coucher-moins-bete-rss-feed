@@ -25,21 +25,13 @@ namespace SeCoucherMoinsBeteRssFeed
 
             services.AddHostedService<BackgroundLoaderService>();
 
-            services.AddMvc()
-                .AddNewtonsoftJson();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            // app.UseMvc();
-            app.UseRouting();
-            // app.UseRouting(routes => { routes.MapControllers(); });
+            app.UseMvc();
         }
     }
 }
