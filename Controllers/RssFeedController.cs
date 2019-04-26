@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +33,7 @@ namespace SeCoucherMoinsBeteRssFeed.Controllers
                 Title = "Se Coucher Moins Bete",
                 Description = "Se Coucher Moins Bete",
                 Link = new Uri("https://secouchermoinsbete.fr"),
-                Copyright = ""
+                Copyright = "",
             };
 
             foreach (var item in anecdotes)
@@ -50,9 +51,9 @@ namespace SeCoucherMoinsBeteRssFeed.Controllers
                 feed.Items.Add(item1);
             }
 
-            var rss = feed.Serialize();
+            var rss = feed.Serialize(new SerializeOption() {Encoding = Encoding.UTF8});
 
-            return Content(rss, "application/xml");
+            return Content(rss, "application/rss+xml; charset=UTF-8", Encoding.UTF8);
         }
     }
 }

@@ -73,7 +73,7 @@ namespace SeCoucherMoinsBeteRssFeed.Services
             var path1 = "//article/p[contains(@class, 'summary')]";
             var path2 = "//article/p[contains(@class, 'details')]";
             var imagePath = "//*[@id='sources-image-wrapper']/a/img";
-            var titlePath = "//h1/a";
+            var titlePath = "//*[@id='anecdote-item']/header/h1/a";
             var datePath = "//time[contains(@class, 'anecdote-publication-date')]";
             var summary = htmlDoc.DocumentNode.SelectSingleNode(path1);
             var details = htmlDoc.DocumentNode.SelectSingleNode(path2);
