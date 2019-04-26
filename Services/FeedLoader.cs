@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using Microsoft.Extensions.Hosting;
 
 namespace SeCoucherMoinsBeteRssFeed.Services
 {
@@ -12,10 +13,12 @@ namespace SeCoucherMoinsBeteRssFeed.Services
         private Anecdote[] _anecdotes = new Anecdote[0];
 
         private readonly IHttpClientFactory _clientFactory;
+        private readonly IHostEnvironment _environment;
 
-        public FeedLoader(IHttpClientFactory clientFactory)
+        public FeedLoader(IHttpClientFactory clientFactory, IHostEnvironment environment)
         {
             _clientFactory = clientFactory;
+            _environment = environment;
         }
 
         private const string BaseUrl = "https://secouchermoinsbete.fr";
@@ -27,7 +30,7 @@ namespace SeCoucherMoinsBeteRssFeed.Services
 
         public async Task Load()
         {
-            int pagesToParse = 20;
+            int pagesToParse = _environment.IsDevelopment() ? 1 : 20;
             var anecdotes = new List<Anecdote>();
             for (int i = 1; i <= pagesToParse; i++)
             {

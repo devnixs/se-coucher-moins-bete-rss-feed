@@ -37,10 +37,9 @@ namespace SeCoucherMoinsBeteRssFeed
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting(routes =>
-            {
-                routes.MapControllers();
-            });
+            // app.UseMvc();
+            app.UseRouting();
+            // app.UseRouting(routes => { routes.MapControllers(); });
         }
     }
 }

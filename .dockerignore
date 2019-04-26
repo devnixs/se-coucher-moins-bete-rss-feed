@@ -24,3 +24,8 @@ wwwroot/templates
 node_modules
 .idea
 .env
+
+Dockerfile
+
+.dockerignore
+.gitignore
