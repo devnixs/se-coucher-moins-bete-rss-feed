@@ -59,7 +59,7 @@ namespace SeCoucherMoinsBeteRssFeed.Controllers
                             Values = new NameValueCollection()
                             {
                                 {"url", item.ImageUrl},
-                                {"type", "image/jpeg"},
+                                {"type", "image/png"},
                                 {"length", item.ImageLength.ToString()},
                             }
                         }
