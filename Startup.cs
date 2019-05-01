@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SeCoucherMoinsBeteRssFeed.Services;
@@ -17,11 +18,11 @@ namespace SeCoucherMoinsBeteRssFeed
     {
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services, IConfiguration config)
         {
             services.AddHttpClient();
             services.AddSingleton<FeedLoader>();
-            services.AddTransient((svc) => new RavenClient("https://978ab7c7758a408186d156406c46b98e:a05e25bf3fd54beb9859a5d820e6b196@sentry.areya.fr/13"));
+            services.AddTransient((svc) => new RavenClient(config["RavenClientUrl"]));
 
             services.AddHostedService<BackgroundLoaderService>();
 

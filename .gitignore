@@ -273,3 +273,6 @@ StableHouse.Front/cypress/.Trash-0
 StableHouse.Front/cypress/screenshots
 
 docker-compose-custom.yml
+
+deploy.bat
+.env

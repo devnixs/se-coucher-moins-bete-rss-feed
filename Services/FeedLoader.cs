@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Hosting;
+using SharpRaven;
+using SharpRaven.Data;
 
 namespace SeCoucherMoinsBeteRssFeed.Services
 {
@@ -14,11 +16,13 @@ namespace SeCoucherMoinsBeteRssFeed.Services
 
         private readonly IHttpClientFactory _clientFactory;
         private readonly IHostingEnvironment _environment;
+        private readonly RavenClient _ravenClient;
 
-        public FeedLoader(IHttpClientFactory clientFactory, IHostingEnvironment environment)
+        public FeedLoader(IHttpClientFactory clientFactory, IHostingEnvironment environment, RavenClient ravenClient)
         {
             _clientFactory = clientFactory;
             _environment = environment;
+            _ravenClient = ravenClient;
         }
 
         private const string BaseUrl = "https://secouchermoinsbete.fr";
@@ -30,12 +34,19 @@ namespace SeCoucherMoinsBeteRssFeed.Services
 
         public async Task Load()
         {
-            int pagesToParse = _environment.IsDevelopment() ? 1 : 20;
+            int pagesToParse = _environment.IsDevelopment() ? 1 : 10;
             var anecdotes = new List<Anecdote>();
             for (int i = 1; i <= pagesToParse; i++)
             {
-                var thisPage = await ParsePage(i);
-                anecdotes.AddRange(thisPage);
+                try
+                {
+                    var thisPage = await ParsePage(i);
+                    anecdotes.AddRange(thisPage);
+                }
+                catch (Exception e)
+                {
+                    _ravenClient.Capture(new SentryEvent(e));
+                }
             }
 
             _anecdotes = anecdotes.ToArray();
@@ -56,8 +67,15 @@ namespace SeCoucherMoinsBeteRssFeed.Services
             foreach (var node in nodes)
             {
                 var link = node.Attributes["href"];
-                var anecdote = await ParseAnecdote(link.Value);
-                anecdotes.Add(anecdote);
+                try
+                {
+                    var anecdote = await ParseAnecdote(link.Value);
+                    anecdotes.Add(anecdote);
+                }
+                catch (Exception e)
+                {
+                    _ravenClient.Capture(new SentryEvent(e));
+                }
             }
 
             return anecdotes.ToArray();
